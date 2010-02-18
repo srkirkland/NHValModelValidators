@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
-using NHValModelValidators.Models;
+using NHibernate.Validator.Engine;
 
 namespace NHValModelValidators.Validation
 {
@@ -9,20 +9,20 @@ namespace NHValModelValidators.Validation
     /// </summary>
     public class NHibernateValidatorModelValidator : ModelValidator
     {
-        public NHibernateValidatorModelValidator(ModelMetadata metadata, ControllerContext controllerContext)
+        private readonly IClassValidator _validator;
+
+        public NHibernateValidatorModelValidator(ModelMetadata metadata, ControllerContext controllerContext, IClassValidator validator)
             : base(metadata, controllerContext)
         {
-
+            _validator = validator;
         }
 
         /// <summary>
-        /// Validate the object passed in and return the validation results
+        /// Validate the model associated with this validator
         /// </summary>
         public override IEnumerable<ModelValidationResult> Validate(object container)
         {
-            var validationEngine = ValidatorEngineFactory.ValidatorEngine;
-
-            var validationResults = validationEngine.Validate(container);
+            var validationResults = _validator.GetInvalidValues(Metadata.Model);
 
             foreach (var validationResult in validationResults)
             {

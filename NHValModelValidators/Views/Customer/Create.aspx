@@ -11,7 +11,7 @@
     <h3><%= Html.Encode(TempData["Message"]) %></h3>
 
     <% using (Html.BeginForm()) {%>
-        <%= Html.ValidationSummary(false) %>
+        <%= Html.ValidationSummary(true) %>
 
         <fieldset>
             <legend>Fields</legend>
