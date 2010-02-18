@@ -27,7 +27,7 @@ namespace NHValModelValidators.Models
 
             for (int i = 0; i < n; i++)
             {
-                customers.Add(new Customer { Id = i + 1, CompanyName = "Company" + i, ContactName = "Contact" + i, Country = "USA", Fax = "Fax" });
+                customers.Add(new Customer { Id = i + 1, CompanyName = "Company" + i, ContactName = "Contact" + i, Country = "USA", Fax = "Fax", Age = i + 1 });
             }
 
             return customers;
