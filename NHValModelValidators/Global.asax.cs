@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using NHValModelValidators.Validation;
 
 namespace NHValModelValidators
 {
@@ -25,6 +26,10 @@ namespace NHValModelValidators
             AreaRegistration.RegisterAllAreas();
 
             RegisterRoutes(RouteTable.Routes);
+
+            ModelValidatorProviders.Providers.Clear(); //Remove the default data annotations validations
+
+            ModelValidatorProviders.Providers.Add(new NHibernateValidatorProvider()); //Server side validation provider
         }
     }
 }

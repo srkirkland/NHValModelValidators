@@ -74,9 +74,12 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\ValidatorEngineFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validation\NHibernateValidatorModelValidator.cs" />
+    <Compile Include="Validation\NHibernateValidatorProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Views\Customer\Create.aspx" />
     <Content Include="Views\Customer\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Content\Site.css" />
