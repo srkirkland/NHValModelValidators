@@ -9,4 +9,7 @@
     <p>
         Go to the create customer page: <%= Html.ActionLink("Create New Customer", "Create", "Customer") %>
     </p>
+    <p>
+        Go to the create customer page with client-side validation enabled: <%= Html.ActionLink("Create New Customer w/ Client Val", "CreateWithClientVal", "Customer") %>
+    </p>
 </asp:Content>

@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Views\Customer\CreateWithClientVal.aspx" />
     <Content Include="Views\Customer\Create.aspx" />
     <Content Include="Views\Customer\Index.aspx" />
     <Content Include="Web.config" />
