@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
-using NHValModelValidators.Models;
 
 namespace NHValModelValidators.Validation
 {

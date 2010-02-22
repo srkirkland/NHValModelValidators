@@ -72,7 +72,7 @@
     </Compile>
     <Compile Include="Models\BaseObject.cs" />
     <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\ValidatorEngineFactory.cs" />
+    <Compile Include="ValidatorEngineFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\NHibernateValidatorModelValidator.cs" />
     <Compile Include="Validation\NHibernateValidatorProvider.cs" />

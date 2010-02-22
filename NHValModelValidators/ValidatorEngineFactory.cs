@@ -1,7 +1,7 @@
 using NHibernate.Validator.Engine;
 using NHibernate.Validator.Event;
 
-namespace NHValModelValidators.Models
+namespace NHValModelValidators
 {
     public class ValidatorEngineFactory
     {
