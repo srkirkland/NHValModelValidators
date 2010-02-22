@@ -72,6 +72,8 @@
     </Compile>
     <Compile Include="Models\BaseObject.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Validation\NHibernateValidatorClientProvider.cs" />
+    <Compile Include="Validation\NHibernateValidatorClientValidator.cs" />
     <Compile Include="Validation\RuleEmitterList.cs" />
     <Compile Include="ValidatorEngineFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
