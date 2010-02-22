@@ -30,6 +30,7 @@ namespace NHValModelValidators
             ModelValidatorProviders.Providers.Clear(); //Remove the default data annotations validations
 
             ModelValidatorProviders.Providers.Add(new NHibernateValidatorProvider()); //Server side validation provider
+            ModelValidatorProviders.Providers.Add(new NHibernateValidatorClientProvider()); //Client side validation provider
         }
     }
 }
