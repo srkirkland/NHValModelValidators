@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using NHibernate.Validator.Constraints;
 using NHibernate.Validator.Engine;
+using System.ComponentModel.DataAnnotations;
 
 namespace NHValModelValidators.Validation
 {
@@ -28,7 +29,7 @@ namespace NHValModelValidators.Validation
             _ruleEmitters.AddSingle<MinAttribute>(x => new ModelClientValidationRangeRule(x.Message, x.Value, null));
             _ruleEmitters.AddSingle<MaxAttribute>(x => new ModelClientValidationRangeRule(x.Message, null, x.Value));
 
-            _ruleEmitters.AddSingle<RangeAttribute>(
+            _ruleEmitters.AddSingle<NHibernate.Validator.Constraints.RangeAttribute>(
                 x => new ModelClientValidationRangeRule(x.Message, x.Min, x.Max));
             
             _ruleEmitters.AddSingle<PatternAttribute>(x => new ModelClientValidationRegexRule(x.Message, x.Regex));
@@ -53,16 +54,43 @@ namespace NHValModelValidators.Validation
             {
                 foreach (var validationRule in _ruleEmitters.EmitRules(constraint))
                 {
-                    if (validationRule != null)
-                    {
-                        validationRule.ErrorMessage = constraint.Message; //TODO: If specified
-                    }
+                    validationRule.ErrorMessage = constraint.Message; //Temporarily give validation rule the error message provided by the validator
+
+                    validationRule.ErrorMessage = MessageOrDefault(validationRule, metadata.PropertyName); //Get a true error message if not provided
 
                     rules.Add(validationRule);
                 }
             }
 
             yield return new NHibernateValidatorClientValidator(metadata, context, rules);
+        }
+
+        protected string MessageOrDefault(ModelClientValidationRule rule, string propertyName)
+        {
+            // We don't want to display the default {validator.*} messages
+            if ((rule.ErrorMessage != null) && !rule.ErrorMessage.StartsWith("{validator."))
+                return rule.ErrorMessage;
+
+            switch (rule.ValidationType)
+            {
+                case "stringLength" :
+                    var maxLength = (int) rule.ValidationParameters["maximumLength"];
+                    return
+                        new StringLengthAttribute(maxLength).FormatErrorMessage(propertyName);
+                case "required" :
+                    return new RequiredAttribute().FormatErrorMessage(propertyName);
+                case "range" :
+                    var min = Convert.ToDouble(rule.ValidationParameters["minimum"]);
+                    var max = Convert.ToDouble(rule.ValidationParameters["maximum"]);
+                    return
+                        new System.ComponentModel.DataAnnotations.RangeAttribute(min, max).FormatErrorMessage(propertyName);
+                case "regularExpression":
+                    var pattern = (string)rule.ValidationParameters["pattern"];
+                    return new RegularExpressionAttribute(pattern).FormatErrorMessage(propertyName);
+                default:
+                    throw new NotSupportedException(
+                        "Only stringLength, Required, Range and RegularExpression validators are supported for generic error messages.  Add a custom error message or choose another validator type");
+            }            
         }
     }
 }

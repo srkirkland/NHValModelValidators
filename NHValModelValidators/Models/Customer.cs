@@ -9,16 +9,17 @@ namespace NHValModelValidators.Models
         [Length(10)]
         public virtual string CompanyName { get; set; }
 
-        [NotNullNotEmpty]
+        [NotNullNotEmpty(Message = "Don't forget the contact name")]
         public virtual string ContactName { get; set; }
 
         [NotNullNotEmpty]
         public virtual string Country { get; set; }
 
         [NotNullNotEmpty]
+        [Pattern("^[0-9]{6}")]
         public virtual string Fax { get; set; }
 
-        [Range(1, 200, "Must be between 1 and 200")]
+        [Range(1, 200)]
         public virtual int Age { get; set; }
 
         public static IList<Customer> GetCustomers(int n)
